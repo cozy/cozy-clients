@@ -13,9 +13,8 @@ module.exports = class Drone
    ## function Drone (options)
    ## @options {Object} Options to use for this instance.
    ## Constructor function for the Client to the Haibu server.
-   
+
    constructor: (options) ->
-        options.token = "unknown"
         @options = options || {};
       
         if (typeof this.options.get != 'function') 
@@ -36,8 +35,9 @@ module.exports = class Drone
    ## on the remote Haibu server.
 
     get: (name, callback) ->
-        @client.setToken @options.get("token")
-        @client.get 'drone/' + name, callback
+        if @options.get("token")?
+            @client.setToken @options.get("token")
+        @client.get 'drones/' + name, callback
 
 
    ## function running (callback)
@@ -45,7 +45,8 @@ module.exports = class Drone
    ## Gets the data about all the drones on the hive.
 
     running: (callback) ->
-        @client.setToken @options.get("token")
+        if @options.get("token")?
+            @client.setToken @options.get("token")
         @client.get 'drones/running', callback
 
 
@@ -56,7 +57,8 @@ module.exports = class Drone
 
     start: (app, callback) ->
         data = start: app 
-        @client.setToken @options.get("token")
+        if @options.get("token")?
+            @client.setToken @options.get("token")
         @client.post 'drones/' + app.name + '/start', data, callback
 
    ## function stop (name, callback)
@@ -68,7 +70,8 @@ module.exports = class Drone
         data = 
             stop: 
                 name: name
-        @client.setToken @options.get("token")
+        if @options.get("token")?
+            @client.setToken @options.get("token")
         @client.post 'drones/' + name + '/stop', data, callback
 
 
@@ -81,7 +84,8 @@ module.exports = class Drone
         data =
             restart: 
                 name: name
-        @client.setToken @options.get("token")
+        if @options.get("token")?
+            @client.setToken @options.get("token")
         @client.post 'drones/' + name + '/restart', data, callback
 
 
@@ -90,9 +94,10 @@ module.exports = class Drone
     ## @callback {function} Continuation to pass control back to when complete.
     ## Build brunch the application with specified :id on the remote Haibu server
 
-    brunch: (name, callback) ->
+    brunch: (app, callback) ->
         data = brunch: app
-        @client.setToken @options.get("token")
+        if @options.get("token")?
+            @client.setToken @options.get("token")
         @client.post 'drones/' + app.name + '/brunch', data, callback
 
 
@@ -101,9 +106,10 @@ module.exports = class Drone
     ## @callback {function} Continuation to pass control back to when complete.
     ## Update application with specified :id thanks to a git pull
 
-    lightUpdate: (name, callback) ->
+    lightUpdate: (app, callback) ->
         data = update: app
-        @client.setToken @options.get("token")
+        if @options.get("token")?
+            @client.setToken @options.get("token")
         @client.post 'drones/' + app.name + '/light-update', data, callback
 
 
@@ -114,7 +120,8 @@ module.exports = class Drone
 
     clean: (app, callback) ->
         data = app
-        @client.setToken @options.get("token")
+        if @options.get("token")?
+            @client.setToken @options.get("token")
         @client.post 'drones/' + app.name + '/clean', data, callback
 
 
@@ -123,5 +130,6 @@ module.exports = class Drone
    ## Attempts to clean the all applications from the Haibu server targeted by this instance.
 
     cleanAll: (callback) ->
-        @client.setToken @options.get("token")
+        if @options.get("token")?
+            @client.setToken @options.get("token")
         @client.post 'drones/cleanall', {}, callback
