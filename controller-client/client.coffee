@@ -1,93 +1,127 @@
-##
-## client.coffee: Client for the controller API
-##
-##
-##
- 
-request = require 'request-json'
-base64 = require('utile').base64
+#
+# client.coffee : API Client for the haibu Drone API.
+#
+#
+
+Client = require("request-json").JsonClient
 
 
-## function Client (options)
-## @options {Object} Options to use for this instance.
-## Constructor function for the Client to the haibu API.
 
-module.exports= class Client 
+module.exports = class Drone
 
-    constructor: (options) ->
-        this.options = options || {};
+
+   ## function Drone (options)
+   ## @options {Object} Options to use for this instance.
+   ## Constructor function for the Client to the Haibu server.
+   
+   constructor: (options) ->
+        options.token = "unknown"
+        @options = options || {};
       
         if (typeof this.options.get != 'function') 
-            this.options.get = (key) ->
+            @options.get = (key) ->
                 return this[key]
     
-        this.config = 
+        @config = 
             host: options.host || 'localhost',
             port: options.port || 9002
 
-
-        @failCodes = 
-            400: 'Bad Request'
-            401: 'Not authorized'
-            403: 'Forbidden'
-            404: 'Item not found'
-            500: 'Internal Server Error'
-
-        @successCodes = 
-            200: 'OK'
-            201: 'Created'
-
-    Function::define = (prop, desc) ->
-        Object.defineProperty this.prototype, prop, desc
-
-   ## @remoteUri {string}
-   ## Full URI for the remote Haibu server this client
-   ## is configured to request against.
-
-    @define 'remoteUri',
-        get: ->
-            return 'http://' + this.config.host + ':' + this.config.port
+        @client = new Client "http://localhost:9002/"
 
 
-   ## @private _request (method, uri, [body], callback, success)
-   ## @options {Object} Outgoing request options.
-   ## @callback {function} Continuation to short-circuit to if request is unsuccessful.
-   ## @success {function} Continuation to call if the request is successful
-   ##cCore method for making requests against the haibu Drone API. Flexible with respect
-   ## to continuation passing given success and callback.
+   ## function get (name, callback)
+   ## @name {string} name of the application to get from the Haibu server.
+   ## @callback {function} Continuation to pass control back to when complete.
+   ## Gets the data about all the drones for the app with the specified `name`
+   ## on the remote Haibu server.
 
-    _request: (options, callback, success) ->
-        self = this;
-    
-        if typeof options == 'string'
-            options = path: options 
-    
-        options.method  = options.method || 'GET'
-        options.uri     = this.remoteUri + options.path
-        options.headers = options.headers || {}
-        options.headers['content-type'] = options.headers['content-type'] || 'application/json'
-        options.timeout = 8 * 60 * 1000
-          
-        if options.headers['content-type'] == 'application/json' && options.body 
-            options.body = JSON.stringify(options.body)
+    get: (name, callback) ->
+        @client.setToken @options.get("token")
+        @client.get 'drone/' + name, callback
 
-        return request options, (err, response, body) ->
-            if err
-                return callback(err)
 
-            statusCode = response.statusCode.toString()
-            result = ""
-            error = ""
-              
-            try 
-                result = JSON.parse(body)
-            catch err
-            # Ignore Errors
-          
-            if Object.keys(self.failCodes).indexOf(statusCode) != -1
-                error = new Error('haibu Error (' + statusCode + '): ' + self.failCodes[statusCode])
-                error.result = result
-                error.status = statusCode
-                callback error
+   ## function running (callback)
+   ## @callback {function} Continuation to pass control back to when complete.
+   ## Gets the data about all the drones on the hive.
 
-             success response, result
+    running: (callback) ->
+        @client.setToken @options.get("token")
+        @client.get 'drones/running', callback
+
+
+   ## function start (app, callback)
+   ## @app {Object} Application to start on the Haibu server.
+   ## @callback {function} Continuation to pass control back to when complete.
+   ## Starts the the app with the specified `app.name` on the remote Haibu server.
+
+    start: (app, callback) ->
+        data = start: app 
+        @client.setToken @options.get("token")
+        @client.post 'drones/' + app.name + '/start', data, callback
+
+   ## function stop (name, callback)
+   ## @name {string} Name of the application to stop on the Haibu server.
+   ## @callback {function} Continuation to pass control back to when complete.
+   ## Stops the application with the specified `name` on the remote Haibu server.
+
+    stop: (name, callback) ->
+        data = 
+            stop: 
+                name: name
+        @client.setToken @options.get("token")
+        @client.post 'drones/' + name + '/stop', data, callback
+
+
+   ## function restart (name, callback)
+   ## @name {string} Name of the application to restart on the Haibu server.
+   ## @callback {function} Continuation to pass control back to when complete.
+   ## Restarts the application with the specified :id on the remote Haibu server.
+
+    restart: (name, callback) ->
+        data =
+            restart: 
+                name: name
+        @client.setToken @options.get("token")
+        @client.post 'drones/' + name + '/restart', data, callback
+
+
+    ## function brunch (app, callback)
+    ## @app {String} Application to build brunch
+    ## @callback {function} Continuation to pass control back to when complete.
+    ## Build brunch the application with specified :id on the remote Haibu server
+
+    brunch: (name, callback) ->
+        data = brunch: app
+        @client.setToken @options.get("token")
+        @client.post 'drones/' + app.name + '/brunch', data, callback
+
+
+    ## function ligthUpdate (app, callback)
+    ## @app {String} Application to update
+    ## @callback {function} Continuation to pass control back to when complete.
+    ## Update application with specified :id thanks to a git pull
+
+    lightUpdate: (name, callback) ->
+        data = update: app
+        @client.setToken @options.get("token")
+        @client.post 'drones/' + app.name + '/light-update', data, callback
+
+
+   ## function clean (app, callback)
+   ## @app {Object} Application to clean on the Haibu server.
+   ## @callback {function} Continuation to pass control back to when complete.
+   ## Attempts to clean the specified `app` from the Haibu server targeted by this instance.
+
+    clean: (app, callback) ->
+        data = app
+        @client.setToken @options.get("token")
+        @client.post 'drones/' + app.name + '/clean', data, callback
+
+
+   ## function cleanAll (app, callback)
+   ## @callback {function} Continuation to pass control back to when complete.
+   ## Attempts to clean the all applications from the Haibu server targeted by this instance.
+
+    cleanAll: (callback) ->
+        @client.setToken @options.get("token")
+        @client.post 'drones/cleanall', {}, callback
