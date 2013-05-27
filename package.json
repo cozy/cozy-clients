@@ -17,7 +17,7 @@
     "platform-as-a-service"
   ],
   "dependencies": {
-    "request": "2.x.x"
+    "request-json": "0.3.3"
   },
   "devDependencies": {
     "cozy-controller": "0.x.x"

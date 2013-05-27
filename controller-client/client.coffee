@@ -1,11 +1,10 @@
 ##
-## client.js: Client for the haibu API
+## client.coffee: Client for the controller API
 ##
-## (C) 2012, Nodejitsu Inc.
 ##
 ##
  
-request = require 'request'
+request = require 'request-json'
 base64 = require('utile').base64
 
 
