@@ -1,20 +1,16 @@
 {
-  "name": "haibu-api",
+  "name": "cozy-clients",
   "version": "0.9.0",
-  "description": "A collection of client wrappers for haibu's core api ",
-  "author": "Nodejitsu Inc. <info@nodejitsu.com>",
-  "maintainers": [
-    "mmalecki <maciej@nodejitsu.com>",
-    "indexzero <charlie@nodejitsu.com>"
-  ],
+  "description": "A collection of clients for Cozy Apis",
+  "author": "Cozy Cloud",
   "repository": {
     "type": "git",
-    "url": "http://github.com/nodejitsu/haibu-api.git"
+    "url": "http://github.com/mycozycloud/cozy-clients.git"
   },
   "keywords": [
-    "cloud computing",
+    "client",
+    "cozy",
     "automated deployment",
-    "platform-as-a-service"
   ],
   "dependencies": {
     "request-json": "0.3.3"
