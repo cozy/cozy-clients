@@ -1,0 +1,37 @@
+{
+  "name": "haibu-api",
+  "version": "0.9.0",
+  "description": "A collection of client wrappers for haibu's core api ",
+  "author": "Nodejitsu Inc. <info@nodejitsu.com>",
+  "maintainers": [
+    "mmalecki <maciej@nodejitsu.com>",
+    "indexzero <charlie@nodejitsu.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/nodejitsu/haibu-api.git"
+  },
+  "keywords": [
+    "cloud computing",
+    "automated deployment",
+    "platform-as-a-service"
+  ],
+  "dependencies": {
+    "request-json": "0.3.3"
+  },
+  "devDependencies": {
+    "cozy-controller": "0.x.x", 
+    "should": ">= 1.2.0",
+    "chai": ">= 1.3.0",
+    "mocha": ">= 1.6.0"
+  },
+  "engines": {
+    "node": ">= 0.6.0"
+  }, 
+  "scripts":
+  { "test": "cake tests"
+  , "start": "./node_modules/coffee-script/bin/coffee server.coffee"
+  }
+
+}
+
