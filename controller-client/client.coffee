@@ -7,7 +7,7 @@ Client = require("request-json").JsonClient
 
 
 
-module.exports = class Drone
+module.exports = class ControllerClient
 
 
    ## function Drone (options)

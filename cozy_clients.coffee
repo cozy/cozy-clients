@@ -1,4 +1,4 @@
-Drone = exports.Client = require('./controller-client/client')
+ControllerClient = require('./controller-client/client')
 
 exports.controllerClient = (options) ->
-  return new Drone(options)
+  return new ControllerClient(options)
