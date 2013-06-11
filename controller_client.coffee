@@ -8,20 +8,18 @@ module.exports = class ControllerClient
         @options = options || {}
 
         @config =
-            host: options.host || 'localhost',
-            port: options.port || 9002
-
-        if @options.token?
-            @client.setToken @options.token
+            host: @options.host || 'localhost',
+            port: @options.port || 9002
 
         @client = new Client "http://localhost:9002/"
+        @client.setToken @options.token if @options.token?
 
 
     # function get (name, callback)
     # @name {string} name of the application to get from the Haibu server.
     # @callback {function} Continuation to pass control back to when complete.
     # Gets the data about all the drones for the app with the specified `name`
-    # on the remote Haibu server.
+    # on the remote Controller server.
     get: (name, callback) ->
         @client.get "drones/#{name}", callback
 
@@ -49,7 +47,7 @@ module.exports = class ControllerClient
     # Stops the application with the specified `name` on the remote Haibu
     # server.
     stop: (name, callback) ->
-        data =
+        app =
             stop:
                 name: name
         @client.post "drones/#{app.name}/stop", data, callback

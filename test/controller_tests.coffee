@@ -1,10 +1,7 @@
 should = require('chai').Should()
-cozyClients = require "../cozy_clients"
+ControllerClient = require("../main").ControllerClient
 
-client = cozyClients.controllerClient
-  host: 'localhost'
-  port: 9002
-client = client.drone
+client = new ControllerClient()
 
 app =
     "name": "notes"
