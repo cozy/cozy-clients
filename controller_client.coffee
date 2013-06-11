@@ -1,14 +1,6 @@
-#
-# client.coffee : API Client for the Cozy Controller Drone API.
-#
-#
-
 Client = require("request-json").JsonClient
 
-
-
 module.exports = class ControllerClient
-
 
     # @options {Object} Options to use for this instance.
     # Constructor function for the Client to the Cozy Controller server.
@@ -31,7 +23,7 @@ module.exports = class ControllerClient
     # Gets the data about all the drones for the app with the specified `name`
     # on the remote Haibu server.
     get: (name, callback) ->
-        @client.get 'drones/' + name, callback
+        @client.get "drones/#{name}", callback
 
 
     # function running (callback)
