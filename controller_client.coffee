@@ -8,7 +8,7 @@ module.exports = class ControllerClient
         @options = options || {}
 
         @config =
-            host: @options.host || 'localhost',
+            host: @options.host || 'localhost'
             port: @options.port || 9002
 
         @client = new Client "http://localhost:9002/"
