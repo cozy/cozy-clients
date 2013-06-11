@@ -1,6 +1,6 @@
 {
   "name": "cozy-clients",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A collection of clients for Cozy APIs",
   "author": "Cozy Cloud <contact@cozycloud.cc>",
   "repository": {
@@ -22,11 +22,10 @@
   },
   "engines": {
     "node": ">= 0.6.0"
-  }, 
+  },
   "scripts": {
     "prepublish": "cake build",
     "test": "cake tests"
   },
   "main": "./main.js"
 }
-
