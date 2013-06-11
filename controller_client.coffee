@@ -47,10 +47,10 @@ module.exports = class ControllerClient
     # Stops the application with the specified `name` on the remote Haibu
     # server.
     stop: (name, callback) ->
-        app =
+        data =
             stop:
                 name: name
-        @client.post "drones/#{app.name}/stop", data, callback
+        @client.post "drones/#{name}/stop", data, callback
 
 
     # function restart (name, callback)
