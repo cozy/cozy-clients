@@ -16,7 +16,8 @@ module.exports = class ControllerClient
 
 
     # function get (name, callback)
-    # @name {string} name of the application to get from the Haibu server.
+    # @name {string} name of the application to get from the Cozy Controller
+    # server.
     # @callback {function} Continuation to pass control back to when complete.
     # Gets the data about all the drones for the app with the specified `name`
     # on the remote Controller server.
@@ -32,20 +33,21 @@ module.exports = class ControllerClient
 
 
     # function start (app, callback)
-    # @app {Object} Application to start on the Haibu server.
+    # @app {Object} Application to start on the Cozy Controller server.
     # @callback {function} Continuation to pass control back to when complete.
-    # Starts the the app with the specified `app.name` on the remote Haibu
-    #server.
+    # Starts the the app with the specified `app.name` on the remote Cozy
+    # Controller server.
     start: (app, callback) ->
         data = start: app
         @client.post "drones/#{app.name}/start", data, callback
 
 
     # function stop (name, callback)
-    # @name {string} Name of the application to stop on the Haibu server.
-    # @callback {function} Continuation to pass control back to when complete.
-    # Stops the application with the specified `name` on the remote Haibu
+    # @name {string} Name of the application to stop on the Cozy Controller
     # server.
+    # @callback {function} Continuation to pass control back to when complete.
+    # Stops the application with the specified `name` on the remote Cozy
+    # Controller server.
     stop: (name, callback) ->
         data =
             stop:
@@ -54,10 +56,11 @@ module.exports = class ControllerClient
 
 
     # function restart (name, callback)
-    # @name {string} Name of the application to restart on the Haibu server.
-    # @callback {function} Continuation to pass control back to when complete.
-    # Restarts the application with the specified :id on the remote Haibu
+    # @name {string} Name of the application to restart on the Cozy Controller
     # server.
+    # @callback {function} Continuation to pass control back to when complete.
+    # Restarts the application with the specified :id on the remote Cozy
+    # Controller server.
     restart: (name, callback) ->
         data =
             restart:
@@ -68,8 +71,8 @@ module.exports = class ControllerClient
     # function brunch (app, callback)
     # @app {String} Application to build brunch
     # @callback {function} Continuation to pass control back to when complete.
-    # Build brunch the application with specified :id on the remote Haibu
-    #server
+    # Build brunch the application with specified :id on the remote Cozy
+    # Controller server
     brunch: (app, callback) ->
         data = brunch: app
         @client.post "drones/#{app.name}/brunch", data, callback
@@ -78,17 +81,18 @@ module.exports = class ControllerClient
     # function ligthUpdate (app, callback)
     # @app {String} Application to update
     # @callback {function} Continuation to pass control back to when complete.
-    # Update application with specified :id thanks to a git pull
+    # Update application with specified :id on the remote Cozy Controller
+    # thanks to a git pull
     lightUpdate: (app, callback) ->
         data = update: app
         @client.post "drones/#{app.name}/light-update", data, callback
 
 
     # function clean (app, callback)
-    # @app {Object} Application to clean on the Haibu server.
+    # @app {Object} Application to clean on the Cozy Controller server.
     # @callback {function} Continuation to pass control back to when complete.
-    # Attempts to clean the specified `app` from the Haibu server targeted by
-    # this instance.
+    # Attempts to clean the specified `app` from the Cozy Controller server
+    # targeted by this instance.
     clean: (app, callback) ->
         data = app
         @client.post "drones/#{app.name}/clean", data, callback
@@ -96,7 +100,7 @@ module.exports = class ControllerClient
 
     # function cleanAll (app, callback)
     # @callback {function} Continuation to pass control back to when complete.
-    # Attempts to clean the all applications from the Haibu server targeted by
-    # this instance.
+    # Attempts to clean the all applications from the Cozy Controller server
+    # targeted by this instance.
     cleanAll: (callback) ->
         @client.post 'drones/cleanall', {}, callback
