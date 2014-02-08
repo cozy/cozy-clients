@@ -1,6 +1,6 @@
 {
   "name": "cozy-clients",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "A collection of clients for Cozy APIs",
   "author": "Cozy Cloud <contact@cozycloud.cc>",
   "repository": {
