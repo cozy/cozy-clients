@@ -13,7 +13,7 @@
     "api"
   ],
   "dependencies": {
-    "request-json": "0.3.3"
+    "request-json": "0.4.6"
   },
   "devDependencies": {
     "should": ">= 1.2.0",

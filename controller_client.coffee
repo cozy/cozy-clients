@@ -13,6 +13,8 @@ module.exports = class ControllerClient
 
         @client = new Client "http://localhost:9002/"
         @client.setToken @options.token if @options.token?
+        @client.options =
+            timeout: 3600 * 1000
 
 
     # function get (name, callback)
