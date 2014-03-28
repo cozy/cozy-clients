@@ -1,7 +1,7 @@
 {
   "name": "cozy-clients",
   "version": "0.8.5",
-  "description": "A collection of clients for Cozy APIs",
+  "description": "Clients for Cozy APIs",
   "author": "Cozy Cloud <contact@cozycloud.cc>",
   "repository": {
     "type": "git",
@@ -9,11 +9,12 @@
   },
   "keywords": [
     "client",
+    "helpers",
     "cozy",
     "api"
   ],
   "dependencies": {
-    "request-json": "0.4.6"
+    "request-json": "0.4.10"
   },
   "devDependencies": {
     "should": ">= 1.2.0",
