@@ -7,7 +7,6 @@ Collection of clients to access to Cozy APIs.
 Add the lib to you dependencies
 
     npm install cozy-clients --save
-```
 
 ## Cozy Controller Client
 
