@@ -19,7 +19,6 @@ ControllerClient = require("cozy-clients").ControllerClient
 client = new ControllerClient
     token: token
 
-
 # Get infos about given app.
 client.get 'calendar', (err, res, appInfos) ->
     console.log appInfos
@@ -54,7 +53,7 @@ client.clean 'calendar', (err, res, result) ->
     console.log result
 
 # Remove all applications
-client.cleanAll 'calendar', (err, res, result) ->
+client.cleanAll (err, res, result) ->
     console.log result
 ```
 
