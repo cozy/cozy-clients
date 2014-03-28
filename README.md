@@ -13,49 +13,50 @@ Add the lib to you dependencies
 Commands available in the controller client:
 
 ```coffeescript
-    ControllerClient = require("cozy-clients").ControllerClient
+ControllerClient = require("cozy-clients").ControllerClient
 
-    # Token to access to controller located in /etc/cozy/controller.token
-    client = new ControllerClient
-        token: token
-
-
-    # Get infos about given app.
-    client.get 'calendar', (err, res, appInfos) ->
-        console.log appInfos
+# Token to access to controller located in /etc/cozy/controller.token
+client = new ControllerClient
+    token: token
 
 
-    # Return list of running applications.
-    client.running 'calendar', (err, res, apps) ->
-        console.log apps
+# Get infos about given app.
+client.get 'calendar', (err, res, appInfos) ->
+    console.log appInfos
 
-    # Start (and install it not installed) given application.
-    # It returns application information (running port, pid, etc.)
-    client.start 'calendar', (err, res, appInfos) ->
-        console.log appInfos
 
-    # Stop given application.
-    # It returns application information (running port, pid, etc.)
-    client.stop 'calendar', (err, res, appInfos) ->
-        console.log appInfos
+# Return list of running applications.
+client.running 'calendar', (err, res, apps) ->
+    console.log apps
 
-    # Stop then start application.
-    # It returns application information (running port, pid, etc.)
-    client.restart 'calendar', (err, res, appInfos) ->
-        console.log appInfos
+# Start (and install it not installed) given application.
+# It returns application information (running port, pid, etc.)
+client.start 'calendar', (err, res, appInfos) ->
+    console.log appInfos
 
-    # Update given application (git pull + npm install).
-    # It returns application information (running port, pid, etc.)
-    client.lightUpdate 'calendar', (err, res, appInfos) ->
-        console.log appInfos
+# Stop given application.
+# It returns application information (running port, pid, etc.)
+client.stop 'calendar', (err, res, appInfos) ->
+    console.log appInfos
 
-    # Remove given application
-    client.clean 'calendar', (err, res, result) ->
-        console.log result
+# Stop then start application.
+# It returns application information (running port, pid, etc.)
+client.restart 'calendar', (err, res, appInfos) ->
+    console.log appInfos
 
-    # Remove all applications
-    client.cleanAll 'calendar', (err, res, result) ->
-        console.log result
+# Update given application (git pull + npm install).
+# It returns application information (running port, pid, etc.)
+client.lightUpdate 'calendar', (err, res, appInfos) ->
+    console.log appInfos
+
+# Remove given application
+client.clean 'calendar', (err, res, result) ->
+    console.log result
+
+# Remove all applications
+client.cleanAll 'calendar', (err, res, result) ->
+    console.log result
+```
 
 # About Cozy
 
