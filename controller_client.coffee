@@ -11,7 +11,7 @@ module.exports = class ControllerClient
             host: @options.host || 'localhost'
             port: @options.port || 9002
 
-        @client = new Client "http://localhost:9002/"
+        @client = new Client "http://#{@config.host}:#{@config.port}/"
         @client.setToken @options.token if @options.token?
         @client.options =
             timeout: 3600 * 1000
