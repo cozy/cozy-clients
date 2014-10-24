@@ -90,6 +90,21 @@ module.exports = class ControllerClient
         @client.post "drones/#{app.name}/light-update", data, callback
 
 
+    # function updateStack (callback)
+    # @callback {function} Continuation to pass control back to when complete.
+    # Update stack application
+    updateStack: (callback) ->
+        @client.post "apps/update-stack", {}, callback
+
+
+    # function restartController (callback)
+    # @callback {function} Continuation to pass control back to when complete.
+    # Restart controller
+    restartController: (callback) ->
+        @client.post "apps/restart-controller", {}, callback
+
+
+
     # function clean (app, callback)
     # @app {Object} Application to clean on the Cozy Controller server.
     # @callback {function} Continuation to pass control back to when complete.
