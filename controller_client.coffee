@@ -87,7 +87,7 @@ module.exports = class ControllerClient
     # Change application branch
     changeBranch: (app, branch, callback) ->
         data = manifest: app
-        @client.post "apps/" + app.name + "/change-branch/" + branch, data, callback
+        @client.post "apps/#{app.name}/change-branch/#{branch}", data, callback
 
 
     # function ligthUpdate (app, callback)
