@@ -80,6 +80,16 @@ module.exports = class ControllerClient
         @client.post "drones/#{app.name}/brunch", data, callback
 
 
+    # function changeBranch (app, branch, callback)
+    # @app {String} Application to change branch
+    # @branch {String} new branch
+    # @callback {function} Continuation to pass control back to when complete.
+    # Change application branch
+    changeBranch: (app, branch, callback) ->
+        data = manifest: app
+        @client.post "apps/#{app.name}/change-branch/#{branch}", data, callback
+
+
     # function ligthUpdate (app, callback)
     # @app {String} Application to update
     # @callback {function} Continuation to pass control back to when complete.
