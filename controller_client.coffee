@@ -103,12 +103,10 @@ module.exports = class ControllerClient
     # function updateStack (callback)
     # @callback {function} Continuation to pass control back to when complete.
     # Update stack application
-    updateStack: (arg, callback) ->
+    updateStack: (options, callback) ->
         if arguments.length is 1
-            callback = arg
+            callback = options
             options = {}
-        else
-            options = arg
         @client.post "apps/update-stack", options, callback
 
 
