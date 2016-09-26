@@ -9,7 +9,7 @@ module.exports = class ControllerClient
 
         @config =
             host: @options.host || 'localhost'
-            port: @options.port || 9002
+            port: @options.port || process.env.CONTROLLER_PORT || 9002
 
         @client = new Client "http://#{@config.host}:#{@config.port}/"
         @client.setToken @options.token if @options.token?
